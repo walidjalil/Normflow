@@ -21,7 +21,7 @@ model = model.float()
 
 # ------ Load Data
 dataset = torchvision.datasets.CelebA("/content/gdrive/My Drive/Kaggle", split='train', transform=transforms.Compose([
-    transforms.CenterCrop(148), transforms.Resize(64), transforms.ToTensor()]), download=False)
+    transforms.CenterCrop(148), transforms.Resize(64), transforms.ToTensor()]), download=True)
 
 
 data_load = DataLoader(dataset, batch_size=144, drop_last=True, shuffle=True)
