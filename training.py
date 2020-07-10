@@ -20,11 +20,11 @@ model = VAE(in_channels=3, out_channels=32, kernel_size=3, n_latent=100)
 model = model.float()
 
 # ------ Load Data
-dataset = torchvision.datasets.CelebA("/content/gdrive/My Drive/Normflow", split='train', transform=transforms.Compose([
+dataset = torchvision.datasets.CelebA("/content/gdrive/My Drive/Kaggle", split='train', transform=transforms.Compose([
     transforms.CenterCrop(148), transforms.Resize(64), transforms.ToTensor()]), download=True)
 
-"""
-data_load = DataLoader(dataset, batch_size=64, drop_last=True, shuffle=True)
+
+data_load = DataLoader(dataset, batch_size=144, drop_last=True, shuffle=True)
 
 # ------ Initialize optimizer
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
@@ -47,4 +47,3 @@ for epoch in range(1):
         # if i == 300:
         # print("Reached", i, "iterations!")
         # break
-"""
