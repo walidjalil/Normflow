@@ -20,7 +20,7 @@ model = VAE(in_channels=3, out_channels=32, kernel_size=3, n_latent=100)
 model = model.float()
 
 # ------ Load Data
-dataset = torchvision.datasets.CelebA("/content/gdrive/My Drive/Kaggle/celeba/img_align_celeba", split='train', transform=transforms.Compose([
+dataset = torchvision.datasets.CelebA("/content/gdrive/My Drive/Kaggle/", split='train', transform=transforms.Compose([
     transforms.CenterCrop(148), transforms.Resize(64), transforms.ToTensor()]), download=False)
 
 
