@@ -1,5 +1,5 @@
 """
-VAE
+VAE Class
 
 @author: walidajalil
 """

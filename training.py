@@ -20,8 +20,8 @@ model = VAE(in_channels=3, out_channels=32, kernel_size=3, n_latent=100)
 model = model.float()
 
 # ------ Load Data
-dataset = torchvision.datasets.CelebA("/Users/walidajalil/", split='test', transform=transforms.Compose([
-    transforms.CenterCrop(148), transforms.Resize(64), transforms.ToTensor()]))
+dataset = torchvision.datasets.CelebA("/Users/walidajalil/", split='train', transform=transforms.Compose([
+    transforms.CenterCrop(148), transforms.Resize(64), transforms.ToTensor()]), download=True)
 
 data_load = DataLoader(dataset, batch_size=64, drop_last=True, shuffle=True)
 
@@ -33,7 +33,7 @@ print(" ")
 model.train()
 
 loss_list = []
-for epoch in range(4):
+for epoch in range(1):
     for i, batch in enumerate(data_load):
         data_input = Variable(batch[0])
         optimizer.zero_grad()
