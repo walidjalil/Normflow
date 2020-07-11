@@ -30,8 +30,8 @@ dataset = torchvision.datasets.CelebA("/kaggle/input/celeba", split='train',
 data_load = DataLoader(dataset, batch_size=144, drop_last=True, shuffle=True)
 
 # ------ Initialize optimizer
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.95)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.005)
+scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.90)
 print(" ")
 print("Beginning training now:")
 print(" ")
@@ -39,7 +39,7 @@ model.train()
 
 loss_list = []
 d_kl_list = []
-for epoch in range(1):
+for epoch in range(30):
     for i, batch in enumerate(data_load):
         data_input = Variable(batch[0]).cuda()
         optimizer.zero_grad()
@@ -55,3 +55,10 @@ for epoch in range(1):
         # if i == 300:
         # print("Reached", i, "iterations!")
         # break
+    scheduler.step()
+    torch.save({
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'loss': loss_output,
+    }, "/kaggle/working/Normflow")
