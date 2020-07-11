@@ -59,7 +59,7 @@ for epoch in range(21):
             # if i == 300:
             # print("Reached", i, "iterations!")
             # break
-    if epoch % 5 == 0:
+    if epoch % 1 == 0:
         torch.save({
             'epoch': epoch,
             'model_state_dict': model.state_dict(),
