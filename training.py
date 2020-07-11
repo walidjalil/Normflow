@@ -49,7 +49,7 @@ for epoch in range(21):
         d_kl_list.append(d_kl.item())
         optimizer.step()
         scheduler.step()
-        if i % 20 == 0:
+        if i % 50 == 0:
             print(" ")
             print("Loss: ", loss_output.item())
             print(" ")
