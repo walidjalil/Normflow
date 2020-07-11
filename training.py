@@ -5,7 +5,7 @@ Created on Tue Jul  7 02:23:00 2020
 
 @author: walidajalil
 """
-
+import os
 import torch
 import torch.nn as nn
 import numpy as np
@@ -37,6 +37,9 @@ print("Beginning training now:")
 print(" ")
 model.train()
 
+if not os.path.isdir("/kaggle/working/Normflow/models"):
+    os.makedirs("/kaggle/working/Normflow/models")
+
 loss_list = []
 d_kl_list = []
 for epoch in range(21):
@@ -60,6 +63,7 @@ for epoch in range(21):
             # print("Reached", i, "iterations!")
             # break
     #if epoch % 1 == 0:
+            save_prefix = os.path.join("/kaggle/working/Normflow/models", epoch+1, ".pt")
             torch.save({
                 'epoch': epoch,
                 'model_state_dict': model.state_dict(),
