@@ -34,7 +34,7 @@ class VAE(nn.Module):
         return last_layer
 
     def reparam_trick(self, mu, log_var):
-        norm = torch.randn(mu.size())
+        norm = torch.randn(mu.size()).cuda()
         standard_dev = torch.exp(0.5 * log_var)
 
         return norm * standard_dev + mu
