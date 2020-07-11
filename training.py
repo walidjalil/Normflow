@@ -48,14 +48,17 @@ for epoch in range(20):
         loss_list.append(loss_output.item())
         d_kl_list.append(d_kl.item())
         optimizer.step()
-        print(" ")
-        print("Loss: ", loss_output.item())
-        print(" ")
-        print("D_KL: ", d_kl.item())
-        # if i == 300:
-        # print("Reached", i, "iterations!")
-        # break
         scheduler.step()
+        if i % 20 == 0:
+            print(" ")
+            print("Loss: ", loss_output.item())
+            print(" ")
+            print("D_KL: ", d_kl.item())
+            print("i: ", i)
+            print("-----------------------------")
+            # if i == 300:
+            # print("Reached", i, "iterations!")
+            # break
     if epoch % 5 == 0:
         torch.save({
             'epoch': epoch,
