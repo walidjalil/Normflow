@@ -63,10 +63,10 @@ for epoch in range(21):
             # print("Reached", i, "iterations!")
             # break
     #if epoch % 1 == 0:
-            save_prefix = os.path.join("/kaggle/working/Normflow/models", epoch+1, ".pt")
+            save_prefix = os.path.join("/kaggle/working/Normflow/models", epoch, ".pt")
             torch.save({
                 'epoch': epoch,
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': loss_output, 'D_KL': d_kl,
-            }, "../input/output/")
+            }, save_prefix)

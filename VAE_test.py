@@ -41,6 +41,7 @@ class VAE(nn.Module):
 
     def __init__(self, in_channels=1, out_channels=32, kernel_size=3, n_latent=None):
         super(VAE, self).__init__()
+        super(VAE, self).__init__()
 
         self.e1 = self.encoder(in_channels=in_channels, out_channels=out_channels, kernel_size=kernel_size)
         self.e2 = self.encoder(in_channels=out_channels, out_channels=out_channels * 2, kernel_size=kernel_size)
