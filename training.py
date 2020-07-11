@@ -39,7 +39,7 @@ model.train()
 
 loss_list = []
 d_kl_list = []
-for epoch in range(20):
+for epoch in range(21):
     for i, batch in enumerate(data_load):
         data_input = Variable(batch[0]).cuda()
         optimizer.zero_grad()
