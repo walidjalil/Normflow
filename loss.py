@@ -5,7 +5,6 @@ VAE - Loss
 """
 
 import torch
-import numpy as np
 
 
 def get_loss(mu, log_var, gt_images, reconstructions, dataset_size=None):
