@@ -37,8 +37,8 @@ print("Beginning training now:")
 print(" ")
 model.train()
 
-if not os.path.isdir("/kaggle/working/Normflow/models"):
-    os.makedirs("/kaggle/working/Normflow/models")
+if not os.path.isdir("/kaggle/working/Normflow/saved models"):
+    os.makedirs("/kaggle/working/Normflow/saved models")
 
 loss_list = []
 d_kl_list = []
@@ -52,7 +52,7 @@ for epoch in range(21):
         d_kl_list.append(d_kl.item())
         optimizer.step()
         scheduler.step()
-        if i % 1 == 0:
+        if i % 100 == 0:
             print(" ")
             print("Loss: ", loss_output.item())
             print(" ")
@@ -62,12 +62,12 @@ for epoch in range(21):
             # if i == 300:
             # print("Reached", i, "iterations!")
             # break
-    #if epoch % 1 == 0:
-            save_prefix = os.path.join("/kaggle/working/Normflow/models")
-            path = "/kaggle/working/Normflow/models" + str(epoch) + ".pt"
-            torch.save({
-                'epoch': epoch,
-                'model_state_dict': model.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict(),
-                'loss': loss_output, 'D_KL': d_kl,
-            }, path)
+    if epoch % 1 == 0:
+        save_prefix = os.path.join("/kaggle/working/Normflow/saved models")
+        path = "/kaggle/working/Normflow/saved models/model" + str(epoch) + ".pt"
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'loss': loss_output, 'D_KL': d_kl,
+        }, path)
