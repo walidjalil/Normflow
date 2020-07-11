@@ -21,7 +21,7 @@ model = model.float()
 
 # ------ Load Data
 dataset = torchvision.datasets.CelebA("../input/celeba", split='train', transform=transforms.Compose([
-    transforms.CenterCrop(148), transforms.Resize(64), transforms.ToTensor()]), download=True)
+    transforms.CenterCrop(148), transforms.Resize(64), transforms.ToTensor()]), download=False)
 
 
 data_load = DataLoader(dataset, batch_size=144, drop_last=True, shuffle=True)
