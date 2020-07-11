@@ -18,6 +18,7 @@ from torchvision import transforms
 # ------ Initialize model
 model = VAE(in_channels=3, out_channels=32, kernel_size=3, n_latent=128)
 model = model.float()
+model.cuda()
 
 # ------ Load Data
 dataset = torchvision.datasets.CelebA("/kaggle/input/celeba", split='train',
@@ -40,7 +41,7 @@ loss_list = []
 d_kl_list = []
 for epoch in range(1):
     for i, batch in enumerate(data_load):
-        data_input = Variable(batch[0])
+        data_input = Variable(batch[0]).cuda()
         optimizer.zero_grad()
         loss_output, d_kl = model(data_input)
         loss_output.backward()
