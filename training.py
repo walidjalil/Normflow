@@ -49,7 +49,7 @@ for epoch in range(21):
         d_kl_list.append(d_kl.item())
         optimizer.step()
         scheduler.step()
-        if i % 50 == 0:
+        if i % 1 == 0:
             print(" ")
             print("Loss: ", loss_output.item())
             print(" ")
@@ -59,10 +59,10 @@ for epoch in range(21):
             # if i == 300:
             # print("Reached", i, "iterations!")
             # break
-    if epoch % 1 == 0:
-        torch.save({
-            'epoch': epoch,
-            'model_state_dict': model.state_dict(),
-            'optimizer_state_dict': optimizer.state_dict(),
-            'loss': loss_output, 'D_KL': d_kl,
-        }, "/kaggle/working/Normflow")
+    #if epoch % 1 == 0:
+            torch.save({
+                'epoch': epoch,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': loss_output, 'D_KL': d_kl,
+            }, "../input/output/")
