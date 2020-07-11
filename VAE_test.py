@@ -85,7 +85,7 @@ class VAE(nn.Module):
         output = self.last_layer(decoding4)
         #print("Output shape: ", output.shape)
 
-        loss = get_loss(mu, log_var, gt_images=x, reconstructions=output)
+        loss, d_kl = get_loss(mu, log_var, gt_images=x, reconstructions=output)
         #print("Loss: ", loss)
 
-        return loss
+        return loss, d_kl
