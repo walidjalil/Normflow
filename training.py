@@ -14,6 +14,7 @@ import torchvision
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
 from torchvision import transforms
+import sys
 
 # ------ Initialize model
 model = VAE(in_channels=3, out_channels=32, kernel_size=3, n_latent=128)
@@ -21,11 +22,12 @@ model = model.float()
 model.cuda()
 
 # ------ Load Data
-dataset = torchvision.datasets.CelebA("/kaggle/input/celeba", split='train',
+dataset = torchvision.datasets.CelebA("/home/walid_abduljalil/Normflow", split='train',
                                       transform=transforms.Compose([transforms.RandomHorizontalFlip(),
                                                                     transforms.CenterCrop(148), transforms.Resize(64),
                                                                     transforms.ToTensor()]), download=False)
 # /kaggle/input/celeba
+#sys.exit("Check if download is complete")
 
 data_load = DataLoader(dataset, batch_size=144, drop_last=True, shuffle=True)
 
@@ -37,8 +39,8 @@ print("Beginning training now:")
 print(" ")
 model.train()
 
-if not os.path.isdir("/kaggle/working/Normflow/saved models"):
-    os.makedirs("/kaggle/working/Normflow/saved models")
+if not os.path.isdir("/home/walid_abduljalil/Normflow/saved models"):
+    os.makedirs("/home/walid_abduljalil/Normflow/saved models")
 
 loss_list = []
 d_kl_list = []
@@ -53,6 +55,7 @@ for epoch in range(21):
         optimizer.step()
         scheduler.step()
         if i % 100 == 0:
+            print(torch.min(data_input,3))
             print(" ")
             print("Loss: ", loss_output.item())
             print(" ")
@@ -63,8 +66,8 @@ for epoch in range(21):
             # print("Reached", i, "iterations!")
             # break
     if epoch % 1 == 0:
-        save_prefix = os.path.join("/kaggle/working/Normflow/saved models")
-        path = "/kaggle/working/Normflow/saved models/model" + str(epoch) + ".pt"
+        save_prefix = os.path.join("/home/walid_abduljalil/Normflow/saved models")
+        path = "/home/walid_abduljalil/Normflow/saved models/model" + str(epoch) + ".pt"
         torch.save({
             'epoch': epoch,
             'model_state_dict': model.state_dict(),
