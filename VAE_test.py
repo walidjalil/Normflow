@@ -63,14 +63,19 @@ class VAE(nn.Module):
                                                  out_channels=out_channels)
 
     def forward(self, x):
+        print("input shape:", x.shape)
         encoding1 = self.e1(x)
+        print("encoding1 shape:", x.shape)
         encoding2 = self.e2(encoding1)
+        print("encoding2 shape:", x.shape)
         encoding3 = self.e3(encoding2)
+        print("encoding3 shape:", x.shape)
         encoding4 = self.e4(encoding3)
+        print("encoding4 shape:", x.shape)
         encoding5 = self.e5(encoding4)
-
+        print("encoding5 shape:", x.shape)
         flat = torch.flatten(encoding5, start_dim=1)
-
+        print("torch shape:", x.shape)
         mu = self.mu(flat)
         log_var = self.var(flat)
 
