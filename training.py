@@ -46,7 +46,7 @@ loss_list = []
 d_kl_list = []
 for epoch in range(2):
     for i, batch in enumerate(train_loader):
-        data_input = Variable(batch[0]).cuda()
+        data_input = Variable(batch).cuda()
         optimizer.zero_grad()
         loss_output, d_kl = model(data_input)
         loss_output.backward()

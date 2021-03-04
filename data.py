@@ -19,7 +19,7 @@ class MelDataset(Dataset):
         print("Initializing dataset...")
         for i, filepath in enumerate(glob.glob(path + "/*.pt")):
             self.data = []
-            x = torch.load('filepath')
+            x = torch.load(filepath)
             x = x.T
             x = torch.unsqueeze(x, dim=0)
             self.data.append(x)
