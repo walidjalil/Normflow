@@ -75,7 +75,7 @@ class VAE(nn.Module):
         encoding5 = self.e5(encoding4)
         print("encoding5 shape:", x.shape)
         flat = torch.flatten(encoding5, start_dim=1)
-        print("torch shape:", x.shape)
+        print("flatten shape:", x.shape)
         mu = self.mu(flat)
         log_var = self.var(flat)
 
