@@ -7,29 +7,29 @@ Created on Tue Jul  7 02:23:00 2020
 """
 import os
 import torch
-import torch.nn as nn
-import numpy as np
 from VAE_test import VAE
 import torchvision
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
 from torchvision import transforms
+from data import *
+
 import sys
 
 # ------ Initialize model
-model = VAE(in_channels=3, out_channels=32, kernel_size=3, n_latent=128)
+model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=128)
 model = model.float()
 model.cuda()
 
 # ------ Load Data
-dataset = torchvision.datasets.CelebA("/home/walid_abduljalil/Normflow", split='train',
-                                      transform=transforms.Compose([transforms.RandomHorizontalFlip(),
-                                                                    transforms.CenterCrop(148), transforms.Resize(64),
-                                                                    transforms.ToTensor()]), download=False)
+# dataset = torchvision.datasets.CelebA("/home/walid_abduljalil/Normflow", split='train',
+#                                       transform=transforms.Compose([transforms.RandomHorizontalFlip(),
+#                                                                     transforms.CenterCrop(148), transforms.Resize(64),
+#                                                                     transforms.ToTensor()]), download=False)
 # /kaggle/input/celeba
-#sys.exit("Check if download is complete")
+# sys.exit("Check if download is complete")
 
-data_load = DataLoader(dataset, batch_size=144, drop_last=True, shuffle=True)
+#data_load = DataLoader(dataset, batch_size=144, drop_last=True, shuffle=True)
 
 # ------ Initialize optimizer
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
@@ -44,8 +44,8 @@ if not os.path.isdir("/home/walid_abduljalil/Normflow/saved models"):
 
 loss_list = []
 d_kl_list = []
-for epoch in range(21):
-    for i, batch in enumerate(data_load):
+for epoch in range(2):
+    for i, batch in enumerate(train_loader):
         data_input = Variable(batch[0]).cuda()
         optimizer.zero_grad()
         loss_output, d_kl = model(data_input)
@@ -55,7 +55,7 @@ for epoch in range(21):
         optimizer.step()
         scheduler.step()
         if i % 100 == 0:
-            print(torch.min(data_input,3))
+            print(torch.min(data_input, 3))
             print(" ")
             print("Loss: ", loss_output.item())
             print(" ")

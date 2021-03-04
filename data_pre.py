@@ -60,8 +60,9 @@ for i, filepath in enumerate(glob.glob('/home/walid_abduljalil/tacotron2/mels/*.
     
     data = torch.load(filepath)
     subarray_list = mel_split(data, n_seconds = 2, padding = False)
+    save_path = "/home/walid_abduljalil/Normflow/data/"
     for j, subarray in enumerate(subarray_list):
-        torch.save(subarray,'/home/walid_abduljalil/Normflow/data/' + str(i)+str(j+1) + '.pt')
+        torch.save(subarray, save_path + str(i)+str(j+1) + '.pt')
         
     if (i % 100) == 0:
         print("# of files split: " +str(i+1)+"/"+str(n_files))
