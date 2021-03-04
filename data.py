@@ -18,6 +18,8 @@ class MelDataset(Dataset):
         self.height = 80
         print("Initializing dataset...")
         for i, filepath in enumerate(glob.glob(path + "/*.pt")):
+            if i%100 == 0:
+                print(i)
             self.data = []
             x = torch.load(filepath)
             x = x.T
