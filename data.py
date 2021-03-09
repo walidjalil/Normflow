@@ -24,8 +24,8 @@ class MelDataset(Dataset):
                 print(i)
             x = torch.load(filepath)
             x = x.T
-            if x.shape[1] != 160:
-                print(x.shape[1])
+            if x.shape[0] != 160:
+                print(x.shape[0])
                 print(x.shape)
                 sys.exit("exiting now.")
             x = torch.unsqueeze(x, dim=0)
