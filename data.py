@@ -45,7 +45,6 @@ batch_size = 64
 split = int(np.floor(validation_split * dataset_size))
 
 if shuffle_dataset:
-    np.random.seed(57)
     np.random.shuffle(indices)
 train_indices, val_indices = indices[split:], indices[:split]
 

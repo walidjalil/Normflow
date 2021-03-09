@@ -5,6 +5,7 @@ Created on Tue Jul  7 02:23:00 2020
 
 @author: walidajalil
 """
+
 import os
 import sys
 import torch
@@ -14,13 +15,12 @@ from torch.utils.tensorboard import SummaryWriter
 from torch.autograd import Variable
 from data import *
 
-writer = SummaryWriter()
+#writer = SummaryWriter()
 
 # ------ Initialize model
 model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=128)
 model = model.float()
 model.cuda()
-model.train()
 
 # ------ Initialize optimizer
 optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
@@ -53,8 +53,8 @@ for epoch in range(1):
         loss_output, d_kl = model(data_input)
         loss_output.backward()
         print(loss_output.item())
-        iteration_loss_list.append(loss_output.item())
-        iteration_d_kl_list.append(d_kl.item())
+        #iteration_loss_list.append(loss_output.item())
+        #iteration_d_kl_list.append(d_kl.item())
 
         optimizer.step()
         scheduler.step()
