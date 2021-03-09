@@ -32,8 +32,8 @@ model.cuda()
 #data_load = DataLoader(dataset, batch_size=144, drop_last=True, shuffle=True)
 
 # ------ Initialize optimizer
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.90)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
+scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=1.0)
 print(" ")
 print("Beginning training now:")
 print(" ")
@@ -44,7 +44,7 @@ if not os.path.isdir("/home/walid_abduljalil/Normflow/saved models"):
 
 loss_list = []
 d_kl_list = []
-for epoch in range(2):
+for epoch in range(100):
     for i, batch in enumerate(train_loader):
         data_input = Variable(batch).cuda()
         optimizer.zero_grad()
@@ -55,17 +55,17 @@ for epoch in range(2):
         optimizer.step()
         scheduler.step()
         if i % 100 == 0:
-            print(torch.min(data_input, 3))
+           # print(torch.min(data_input, 3))
             print(" ")
-            print("Loss: ", loss_output.item())
-            print(" ")
-            print("D_KL: ", d_kl.item())
-            print("i: ", i)
+            print("Loss: ", 100*loss_output.item())
+           # print(" ")
+           # print("D_KL: ", d_kl.item())
+            #print("i: ", i)
             print("-----------------------------")
             # if i == 300:
             # print("Reached", i, "iterations!")
             # break
-    if epoch % 1 == 0:
+    if epoch % 100 == 0:
         save_prefix = os.path.join("/home/walid_abduljalil/Normflow/saved models")
         path = "/home/walid_abduljalil/Normflow/saved models/model" + str(epoch) + ".pt"
         torch.save({
