@@ -16,7 +16,7 @@ from torch.autograd import Variable
 from data import *
 import math
 
-#writer = SummaryWriter()
+writer = SummaryWriter()
 
 # ------ Initialize model
 model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=128)
@@ -38,31 +38,28 @@ epoch_loss_list = []
 epoch_d_kl_list = []
 epoch_val_loss_list = []
 epoch_val_d_kl_list = []
-for epoch in range(3):
+for epoch in range(5):
     iteration_loss_list = []
     iteration_d_kl_list = []
 
     val_iteration_loss_list = []
     val_iteration_d_kl_list = []
     for i, batch in enumerate(train_loader):
-        print(i)
         data_input = Variable(batch).cuda()
-        data_input.shape
         optimizer.zero_grad()
 
         loss_output, d_kl = model(data_input)
         loss_output.backward()
-        print(loss_output.item())
-        #iteration_loss_list.append(loss_output.item())
-        #iteration_d_kl_list.append(d_kl.item())
+        iteration_loss_list.append(loss_output.item())
+        iteration_d_kl_list.append(d_kl.item())
 
         optimizer.step()
         scheduler.step()
 
-    #epoch_loss_list.append(np.mean(iteration_loss_list))
-    #epoch_d_kl_list.append(np.mean(iteration_d_kl_list))
-    #writer.add_scalar("Loss/train", np.mean(iteration_loss_list), epoch)
-    #print("train loss: ", np.mean(iteration_loss_list))
+    epoch_loss_list.append(np.mean(iteration_loss_list))
+    epoch_d_kl_list.append(np.mean(iteration_d_kl_list))
+    writer.add_scalar("Loss/train", np.mean(iteration_loss_list), epoch)
+    print("train loss: ", np.mean(iteration_loss_list))
 
     # with torch.no_grad():
     #     model.eval()
