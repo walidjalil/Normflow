@@ -69,7 +69,6 @@ for epoch in range(1):
 
             model.eval()
             val_data_input = Variable(val_batch).cuda()
-            print("Here: ", val_data_input)
 
             val_loss_output, val_d_kl = model(val_data_input)
             print(val_loss_output.item())
