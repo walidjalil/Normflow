@@ -80,7 +80,7 @@ for epoch in range(50):
         print("val loss: ", np.mean(val_iteration_loss_list))
         print("-------------------------------------------------")
 
-    if epoch % 100 == 0:
+    if epoch % 5 == 0:
         save_prefix = os.path.join("/home/walid_abduljalil/Normflow/saved models")
         path = "/home/walid_abduljalil/Normflow/saved models/model" + str(epoch) + ".pt"
         torch.save({
