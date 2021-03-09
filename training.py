@@ -36,7 +36,7 @@ epoch_d_kl_list = []
 epoch_val_loss_list = []
 epoch_val_d_kl_list = []
 
-for epoch in range(100):
+for epoch in range(1):
     iteration_loss_list = []
     iteration_d_kl_list = []
 
@@ -71,6 +71,7 @@ for epoch in range(100):
             data_input = Variable(val_batch).cuda()
 
             val_loss_output, val_d_kl = model(data_input)
+            print(val_loss_output.item())
             val_iteration_loss_list.append(val_loss_output.item())
             val_iteration_d_kl_list.append(val_d_kl.item())
 
