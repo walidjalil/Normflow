@@ -38,7 +38,6 @@ epoch_loss_list = []
 epoch_d_kl_list = []
 epoch_val_loss_list = []
 epoch_val_d_kl_list = []
-math.isnan(train_loader)
 for epoch in range(3):
     iteration_loss_list = []
     iteration_d_kl_list = []
