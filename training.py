@@ -47,7 +47,7 @@ for epoch in range(3):
     for i, batch in enumerate(train_loader):
         print(i)
         data_input = Variable(batch).cuda()
-
+        data_input.shape
         optimizer.zero_grad()
 
         loss_output, d_kl = model(data_input)
