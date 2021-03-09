@@ -22,7 +22,7 @@ class MelDataset(Dataset):
             if i%100 == 0:
                 print(i)
             x = torch.load(filepath)
-            x = x.T
+            #x = x.T
             x = torch.unsqueeze(x, dim=0)
             self.data.append(x)
         print(len(self.data))
