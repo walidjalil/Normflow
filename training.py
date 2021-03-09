@@ -14,6 +14,7 @@ from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torch.autograd import Variable
 from data import *
+import math
 
 #writer = SummaryWriter()
 
@@ -37,7 +38,7 @@ epoch_loss_list = []
 epoch_d_kl_list = []
 epoch_val_loss_list = []
 epoch_val_d_kl_list = []
-
+math.isnan(train_loader)
 for epoch in range(3):
     iteration_loss_list = []
     iteration_d_kl_list = []
