@@ -37,13 +37,13 @@ epoch_d_kl_list = []
 epoch_val_loss_list = []
 epoch_val_d_kl_list = []
 
-for epoch in range(1):
+for epoch in range(10):
     iteration_loss_list = []
     iteration_d_kl_list = []
 
     val_iteration_loss_list = []
     val_iteration_d_kl_list = []
-
+    model.train()
     for i, batch in enumerate(train_loader):
 
         data_input = Variable(batch).cuda()
@@ -65,9 +65,9 @@ for epoch in range(1):
     #print("train loss: ", np.mean(iteration_loss_list))
 
     with torch.no_grad():
+        model.eval()
         for i, val_batch in enumerate(validation_loader):
 
-            model.eval()
             val_data_input = Variable(val_batch).cuda()
 
             val_loss_output, val_d_kl = model(val_data_input)
@@ -75,8 +75,8 @@ for epoch in range(1):
             print(val_loss_output.item())
             print("hello")
 
-            val_iteration_loss_list.append(val_loss_output.item())
-            val_iteration_d_kl_list.append(val_d_kl.item())
+            #val_iteration_loss_list.append(val_loss_output.item())
+            #val_iteration_d_kl_list.append(val_d_kl.item())
 
         #epoch_val_loss_list.append(np.mean(val_iteration_loss_list))
         #epoch_val_d_kl_list.append(np.mean(val_iteration_d_kl_list))
