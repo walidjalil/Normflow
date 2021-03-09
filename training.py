@@ -17,6 +17,7 @@ from data import *
 import math
 
 writer = SummaryWriter()
+writer2 = SummaryWriter()
 
 # ------ Initialize model
 model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=128)
@@ -75,7 +76,7 @@ for epoch in range(50):
 
         epoch_val_loss_list.append(np.mean(val_iteration_loss_list))
         epoch_val_d_kl_list.append(np.mean(val_iteration_d_kl_list))
-        writer.add_scalar("Loss/val", np.mean(val_iteration_loss_list), epoch)
+        writer2.add_scalar("Loss/val", np.mean(val_iteration_loss_list), epoch)
         print("val loss: ", np.mean(val_iteration_loss_list))
         print("-------------------------------------------------")
 
