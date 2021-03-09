@@ -25,6 +25,8 @@ class MelDataset(Dataset):
             x = x.T
             x = torch.unsqueeze(x, dim=0)
             self.data.append(x)
+        print(x.shape)
+        print(len(data))
         print("Dataset initialized")
 
     def __getitem__(self, index):
