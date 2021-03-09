@@ -16,16 +16,15 @@ class MelDataset(Dataset):
     def __init__(self, path, n_seconds):
         self.frame_size = 80 * n_seconds
         self.height = 80
+        self.data = []
         print("Initializing dataset...")
         for i, filepath in enumerate(glob.glob(path + "/*.pt")):
             if i%100 == 0:
                 print(i)
-            self.data = []
             x = torch.load(filepath)
             x = x.T
             x = torch.unsqueeze(x, dim=0)
             self.data.append(x)
-        print(x.shape)
         print(len(self.data))
         print("Dataset initialized")
 
