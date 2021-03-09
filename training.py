@@ -91,5 +91,5 @@ for epoch in range(1):
             'epoch': epoch,
             'model_state_dict': model.state_dict(),
             'optimizer_state_dict': optimizer.state_dict(),
-            'loss': epoch_loss_list[epoch], 'D_KL': epoch_d_kl_list[epoch],
+            'loss': epoch_loss_list, 'D_KL': epoch_d_kl_list,
         }, path)
