@@ -20,6 +20,7 @@ writer = SummaryWriter()
 model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=128)
 model = model.float()
 model.cuda()
+model.train()
 
 # ------ Initialize optimizer
 optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
@@ -45,7 +46,6 @@ for epoch in range(1):
 
     for i, batch in enumerate(train_loader):
 
-        model.train()
         data_input = Variable(batch).cuda()
 
         optimizer.zero_grad()
