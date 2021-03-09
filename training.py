@@ -52,7 +52,7 @@ for epoch in range(1):
 
         loss_output, d_kl = model(data_input)
         loss_output.backward()
-
+        print(loss_output.item())
         iteration_loss_list.append(loss_output.item())
         iteration_d_kl_list.append(d_kl.item())
 
@@ -62,7 +62,7 @@ for epoch in range(1):
     epoch_loss_list.append(np.mean(iteration_loss_list))
     epoch_d_kl_list.append(np.mean(iteration_d_kl_list))
     #writer.add_scalar("Loss/train", np.mean(iteration_loss_list), epoch)
-    print("train loss: ", np.mean(iteration_loss_list))
+    #print("train loss: ", np.mean(iteration_loss_list))
 
     with torch.no_grad():
         for i, val_batch in enumerate(validation_loader):
