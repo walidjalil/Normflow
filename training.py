@@ -45,7 +45,7 @@ for epoch in range(3):
     val_iteration_loss_list = []
     val_iteration_d_kl_list = []
     for i, batch in enumerate(train_loader):
-
+        print(i)
         data_input = Variable(batch).cuda()
 
         optimizer.zero_grad()
