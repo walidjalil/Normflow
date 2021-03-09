@@ -67,7 +67,7 @@ for epoch in range(1):
     with torch.no_grad():
         for j, val_batch in enumerate(validation_loader):
 
-            model.eval()
+            #model.eval()
             data_input = Variable(val_batch).cuda()
 
             val_loss_output, val_d_kl = model(data_input)
