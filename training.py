@@ -38,7 +38,7 @@ epoch_loss_list = []
 epoch_d_kl_list = []
 epoch_val_loss_list = []
 epoch_val_d_kl_list = []
-for epoch in range(5):
+for epoch in range(50):
     iteration_loss_list = []
     iteration_d_kl_list = []
 
