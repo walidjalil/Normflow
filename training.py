@@ -59,9 +59,10 @@ for epoch in range(100):
         optimizer.step()
         scheduler.step()
 
-    epoch_loss_list.append(mean(iteration_loss_list))
-    epoch_d_kl_list.append(mean(iteration_d_kl_list))
-    print("train loss: ", mean(iteration_loss_list))
+    epoch_loss_list.append(np.mean(iteration_loss_list))
+    epoch_d_kl_list.append(np.mean(iteration_d_kl_list))
+    writer.add_scalar("Loss/train", np.mean(iteration_loss_list), epoch)
+    print("train loss: ", np.mean(iteration_loss_list))
 
     with torch.no_grad():
         for j, val_batch in enumerate(validation_loader):
@@ -73,8 +74,11 @@ for epoch in range(100):
             val_iteration_loss_list.append(val_loss_output.item())
             val_iteration_d_kl_list.append(val_d_kl.item())
 
-        epoch_val_loss_list.append(val_iteration_loss_list.mean())
-        epoch_val_d_kl_list.append(val_iteration_d_kl_list.mean())
+        epoch_val_loss_list.append(np.mean(val_iteration_loss_list))
+        epoch_val_d_kl_list.append(np.mean(val_iteration_d_kl_list))
+        writer.add_scalar("Loss/val", np.mean(val_iteration_loss_list), epoch)
+        print("val loss: ", np.mean(val_iteration_loss_list))
+        print("-------------------------------------------------")
 
     if epoch % 100 == 0:
         save_prefix = os.path.join("/home/walid_abduljalil/Normflow/saved models")
