@@ -59,8 +59,8 @@ for epoch in range(1):
         optimizer.step()
         scheduler.step()
 
-    epoch_loss_list.append(np.mean(iteration_loss_list))
-    epoch_d_kl_list.append(np.mean(iteration_d_kl_list))
+    #epoch_loss_list.append(np.mean(iteration_loss_list))
+    #epoch_d_kl_list.append(np.mean(iteration_d_kl_list))
     #writer.add_scalar("Loss/train", np.mean(iteration_loss_list), epoch)
     #print("train loss: ", np.mean(iteration_loss_list))
 
@@ -78,8 +78,8 @@ for epoch in range(1):
             val_iteration_loss_list.append(val_loss_output.item())
             val_iteration_d_kl_list.append(val_d_kl.item())
 
-        epoch_val_loss_list.append(np.mean(val_iteration_loss_list))
-        epoch_val_d_kl_list.append(np.mean(val_iteration_d_kl_list))
+        #epoch_val_loss_list.append(np.mean(val_iteration_loss_list))
+        #epoch_val_d_kl_list.append(np.mean(val_iteration_d_kl_list))
         #writer.add_scalar("Loss/val", np.mean(val_iteration_loss_list), epoch)
         #print("val loss: ", np.mean(val_iteration_loss_list))
         print("-------------------------------------------------")
