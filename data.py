@@ -52,6 +52,6 @@ train_sampler = SubsetRandomSampler(train_indices)
 valid_sampler = SubsetRandomSampler(val_indices)
 
 train_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
-                                           sampler=train_sampler, drop_last=True)
+                                           sampler=train_sampler)
 validation_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,
-                                                sampler=valid_sampler, drop_last=True)
+                                                sampler=valid_sampler)
