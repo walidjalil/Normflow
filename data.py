@@ -23,6 +23,8 @@ class MelDataset(Dataset):
                 print(i)
             x = torch.load(filepath)
             x = x.T
+            if i == 0:
+                print(x.shape)
             x = torch.unsqueeze(x, dim=0)
             self.data.append(x)
         print(len(self.data))
@@ -31,7 +33,7 @@ class MelDataset(Dataset):
     def __getitem__(self, index):
         mel_sample = self.data[index]
 
-        return mel_sample.T
+        return mel_sample
 
     def __len__(self):
         return len(self.data)
