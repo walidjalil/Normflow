@@ -30,7 +30,7 @@ class VAE(nn.Module):
                                                       out_channels=out_channels, padding=1, stride=2, output_padding=1),
                                    nn.BatchNorm2d(out_channels), nn.LeakyReLU(),
                                    nn.Conv2d(kernel_size=kernel_size, in_channels=out_channels, out_channels=in_channels
-                                             , padding=1))#, nn.Tanh())
+                                             , padding=1))  # , nn.Tanh())
         return last_layer
 
     def reparam_trick(self, mu, log_var):
@@ -63,19 +63,19 @@ class VAE(nn.Module):
                                                  out_channels=out_channels)
 
     def forward(self, x):
-        #print("input shape:", x.shape)
+        # print("input shape:", x.shape)
         encoding1 = self.e1(x)
-        #print("encoding1 shape:", x.shape)
+        # print("encoding1 shape:", x.shape)
         encoding2 = self.e2(encoding1)
-        #print("encoding2 shape:", x.shape)
+        # print("encoding2 shape:", x.shape)
         encoding3 = self.e3(encoding2)
-        #print("encoding3 shape:", x.shape)
+        # print("encoding3 shape:", x.shape)
         encoding4 = self.e4(encoding3)
-        #print("encoding4 shape:", x.shape)
-        #encoding5 = self.e5(encoding4)
-        #print("encoding5 shape:", x.shape)
+        # print("encoding4 shape:", x.shape)
+        # encoding5 = self.e5(encoding4)
+        # print("encoding5 shape:", x.shape)
         flat = torch.flatten(encoding4, start_dim=1)
-        #print("flatten shape:", x.shape)
+        # print("flatten shape:", x.shape)
         mu = self.mu(flat)
         log_var = self.var(flat)
 
@@ -83,16 +83,16 @@ class VAE(nn.Module):
 
         d_input = self.decoder_input(z)
         d_input = d_input.view(-1, 256, 5, 10)
-        #decoding1 = self.d1(d_input)
+        # decoding1 = self.d1(d_input)
         decoding2 = self.d2(d_input)
         decoding3 = self.d3(decoding2)
         decoding4 = self.d4(decoding3)
 
         output = self.last_layer(decoding4)
-        #print("Output shape: ", output.shape)
-        #print("gt_images=x shape: ", x.shape)
-        #print("output shape: ", output.shape)
-        loss, d_kl = get_loss(mu, log_var, gt_images=x, reconstructions=output)
-        #print("Loss: ", loss)
+        # print("Output shape: ", output.shape)
+        # print("gt_images=x shape: ", x.shape)
+        # print("output shape: ", output.shape)
+        loss, d_kl = get_loss(mu, log_var, gt_images=x, reconstructions=output.permute(0, 1, 3, 2))
+        # print("Loss: ", loss)
 
         return loss, d_kl
