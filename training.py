@@ -64,22 +64,24 @@ for epoch in range(1):
     writer.add_scalar("Loss/train", np.mean(iteration_loss_list), epoch)
     print("train loss: ", np.mean(iteration_loss_list))
 
-    #with torch.no_grad():
-    for j, val_batch in enumerate(validation_loader):
+    with torch.no_grad():
+        for j, val_batch in enumerate(validation_loader):
 
-        model.eval()
-        data_input = Variable(val_batch).cuda()
+            model.eval()
+            val_data_input = Variable(val_batch).cuda()
+            print(val_data_input)
 
-        val_loss_output, val_d_kl = model(data_input)
-        print(val_loss_output.item())
-        val_iteration_loss_list.append(val_loss_output.item())
-        val_iteration_d_kl_list.append(val_d_kl.item())
+            val_loss_output, val_d_kl = model(val_data_input)
+            print(val_loss_output.item())
 
-    epoch_val_loss_list.append(np.mean(val_iteration_loss_list))
-    epoch_val_d_kl_list.append(np.mean(val_iteration_d_kl_list))
-    writer.add_scalar("Loss/val", np.mean(val_iteration_loss_list), epoch)
-    print("val loss: ", np.mean(val_iteration_loss_list))
-    print("-------------------------------------------------")
+            val_iteration_loss_list.append(val_loss_output.item())
+            val_iteration_d_kl_list.append(val_d_kl.item())
+
+        epoch_val_loss_list.append(np.mean(val_iteration_loss_list))
+        epoch_val_d_kl_list.append(np.mean(val_iteration_d_kl_list))
+        writer.add_scalar("Loss/val", np.mean(val_iteration_loss_list), epoch)
+        print("val loss: ", np.mean(val_iteration_loss_list))
+        print("-------------------------------------------------")
 
     if epoch % 100 == 0:
         save_prefix = os.path.join("/home/walid_abduljalil/Normflow/saved models")
