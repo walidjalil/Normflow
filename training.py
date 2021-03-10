@@ -20,7 +20,7 @@ writer = SummaryWriter()
 writer2 = SummaryWriter()
 
 # ------ Initialize model
-model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=128)
+model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=64)
 model.train()
 model = model.float()
 model.cuda()
@@ -39,7 +39,7 @@ epoch_loss_list = []
 epoch_d_kl_list = []
 epoch_val_loss_list = []
 epoch_val_d_kl_list = []
-for epoch in range(50):
+for epoch in range(51):
     iteration_loss_list = []
     iteration_d_kl_list = []
 
