@@ -20,7 +20,7 @@ writer = SummaryWriter()
 writer2 = SummaryWriter()
 
 # ------ Initialize model
-model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=64)
+model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=256)
 model.train()
 model = model.float()
 model.cuda()
