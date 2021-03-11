@@ -31,18 +31,16 @@ print(" ")
 print("Beginning inference now:")
 print(" ")
 
-if not os.path.isdir("/home/walid_abduljalil/Normflow/saved_inference_output"):
-    os.makedirs("/home/walid_abduljalil/Normflow/saved_inference_output")
-print("hej")
-    with torch.no_grad():
 
-        for i in range(1):
-            print("hej")
-            x = torch.load('/home/walid_abduljalil/Normflow/data/8542.pt')
-            print(x.shape)
-            inf_data_input = torch.load(mel_PATH).cuda()
-            print(inf_data_input.shape)
-            inference_loss, inference_d_kl, reconstruction = model(inf_data_input)
-            print(reconstruction)
-            print("shape of output: ", reconstruction.shape)
-            torch.save(reconstruction, mel_save_PATH)
+for i in range(1):
+    print("hej")
+    x = torch.load('/home/walid_abduljalil/Normflow/data/8542.pt')
+    x = x.unsqueeze(dim=0)
+    x = x.unsqueeze(dim=0)
+    print(x.shape)
+    inf_data_input = torch.load(mel_PATH).cuda()
+    print(inf_data_input.shape)
+    inference_loss, inference_d_kl, reconstruction = model(inf_data_input)
+    print(reconstruction)
+    print("shape of output: ", reconstruction.shape)
+    torch.save(reconstruction, mel_save_PATH)
