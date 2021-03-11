@@ -33,12 +33,11 @@ print(" ")
 
 
 for i in range(1):
-    print("hej")
-    x = torch.load('/home/walid_abduljalil/Normflow/data/8542.pt')
-    x = x.unsqueeze(dim=0)
-    x = x.unsqueeze(dim=0)
-    print(x.shape)
-    inf_data_input = torch.load(mel_PATH).cuda()
+    inf_data_input = torch.load(mel_PATH)
+    inf_data_input = inf_data_input.unsqueeze(dim=0)
+    inf_data_input = inf_data_input.unsqueeze(dim=0)
+    inf_data_input = inf_data_input.cuda()
+
     print(inf_data_input.shape)
     inference_loss, inference_d_kl, reconstruction = model(inf_data_input)
     print(reconstruction)
