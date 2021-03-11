@@ -33,7 +33,7 @@ print(" ")
 
 
 for i in range(1):
-    inf_data_input = torch.load(mel_PATH)
+    inf_data_input = torch.load(mel_PATH).T
     inf_data_input = inf_data_input.unsqueeze(dim=0)
     inf_data_input = inf_data_input.unsqueeze(dim=0)
     inf_data_input = inf_data_input.cuda()
