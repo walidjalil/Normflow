@@ -84,4 +84,4 @@ class VAE(nn.Module):
 
         loss, d_kl = get_loss(mu, log_var, gt_images=x, reconstructions=output.permute(0, 1, 3, 2))
 
-        return loss, d_kl, reconstruction
+        return loss, d_kl, output
