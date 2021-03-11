@@ -16,8 +16,9 @@ from torch.autograd import Variable
 from data import *
 import math
 
-model_PATH = 'Put the path to your model HERE. File should end with .pt'
-mel_PATH = 'PUT the path to your mel spectrogram HERE. File should also end with .pt'
+model_PATH = '/home/walid_abduljalil/Normflow/model45.pt'
+mel_PATH = '/home/walid_abduljalil/Normflow/data/8542.pt'
+mel_save_PATH = '/home/walid_abduljalil/Normflow/reconstructed_mel.pt'
 
 # ------ Initialize model
 model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=128)
@@ -39,3 +40,6 @@ if not os.path.isdir("/home/walid_abduljalil/Normflow/saved_inference_output"):
             inf_data_input = torch.load(mel_PATH).cuda()
 
             inference_loss, inference_d_kl, reconstruction = model(val_data_input)
+            print(reconstruction)
+            print("shape of output: ", reconstruction.shape)
+            torch.save(reconstruction, mel_save_PATH)
