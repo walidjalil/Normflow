@@ -42,4 +42,7 @@ for i in range(1):
     inference_loss, inference_d_kl, reconstruction = model(inf_data_input)
     print(reconstruction)
     print("shape of output: ", reconstruction.shape)
+
+    reconstruction = reconstruction.squeeze(dim=0)
+    reconstruction = reconstruction.squeeze(dim=0)
     torch.save(reconstruction, mel_save_PATH)
