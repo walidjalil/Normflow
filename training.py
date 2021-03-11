@@ -9,7 +9,7 @@ Created on Tue Jul  7 02:23:00 2020
 import os
 import sys
 import torch
-from VAE_test import VAE
+from vanilla_VAE import VAE
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torch.autograd import Variable
