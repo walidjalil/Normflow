@@ -53,7 +53,7 @@ class VAE(nn.Module):
         self.var = nn.Linear(out_channels * 400, n_latent)
 
         self.decoder_input = nn.Linear(n_latent, out_channels * 400)
-
+        
         self.d1 = self.decoder(in_channels=out_channels * 16, out_channels=out_channels * 8, kernel_size=kernel_size)
         self.d2 = self.decoder(in_channels=out_channels * 8, out_channels=out_channels * 4, kernel_size=kernel_size)
         self.d3 = self.decoder(in_channels=out_channels * 4, out_channels=out_channels * 2, kernel_size=kernel_size)
@@ -80,7 +80,7 @@ class VAE(nn.Module):
         log_var = self.var(flat)
 
         z = self.reparam_trick(mu, log_var)
-
+        print("z shape: ",z.shape)
         d_input = self.decoder_input(z)
         d_input = d_input.view(-1, 256, 5, 10)
         # decoding1 = self.d1(d_input)
@@ -92,7 +92,7 @@ class VAE(nn.Module):
         # print("Output shape: ", output.shape)
         # print("gt_images=x shape: ", x.shape)
         # print("output shape: ", output.shape)
-        loss, d_kl = get_loss(mu, log_var, gt_images=x, reconstructions=output.permute(0, 1, 3, 2))
+        loss, d_kl = loss_function(mu, log_var, gt_images=x, reconstructions=output.permute(0, 1, 3, 2))
         # print("Loss: ", loss)
 
         return loss, d_kl

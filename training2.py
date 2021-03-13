@@ -16,38 +16,30 @@ from torch.autograd import Variable
 from data import *
 import math
 
-writer = SummaryWriter()
-writer2 = SummaryWriter()
-device = torch.device("cuda")
+writer3 = SummaryWriter()
+writer4 = SummaryWriter()
+
 # ------ Initialize model
-model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=128)
-#checkpoint = torch.load('/home/walid_abduljalil/Normflow/saved_models_120/model125.pt',map_location="cuda:0")
-#model.load_state_dict(checkpoint['model_state_dict'])
-#model.to(device)
-optimizer = torch.optim.Adam(model.parameters(), lr=0.005)
-scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=1.0)
-#optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-#epoch_start = checkpoint['epoch']
-#loss = checkpoint['loss']
+model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=256)
 model.train()
 model = model.float()
 model.cuda()
 
 # ------ Initialize optimizer
-#optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
-#scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=1.0)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=1.0)
 print(" ")
 print("Beginning training now:")
 print(" ")
 model.train()
-if not os.path.isdir("/home/walid_abduljalil/Normflow/saved_models_new_loss"):
-    os.makedirs("/home/walid_abduljalil/Normflow/saved_models_new_loss")
+if not os.path.isdir("/home/walid_abduljalil/Normflow/saved models"):
+    os.makedirs("/home/walid_abduljalil/Normflow/saved models")
 
 epoch_loss_list = []
 epoch_d_kl_list = []
 epoch_val_loss_list = []
 epoch_val_d_kl_list = []
-for epoch in range(51):
+for epoch in range(71):
     iteration_loss_list = []
     iteration_d_kl_list = []
 
@@ -68,7 +60,7 @@ for epoch in range(51):
 
     epoch_loss_list.append(np.mean(iteration_loss_list))
     epoch_d_kl_list.append(np.mean(iteration_d_kl_list))
-    writer.add_scalar("Loss/train", np.mean(iteration_loss_list), epoch)
+    writer3.add_scalar("Loss/train", np.mean(iteration_loss_list), epoch)
     print("train loss: ", np.mean(iteration_loss_list))
 
     with torch.no_grad():
@@ -84,13 +76,13 @@ for epoch in range(51):
 
         epoch_val_loss_list.append(np.mean(val_iteration_loss_list))
         epoch_val_d_kl_list.append(np.mean(val_iteration_d_kl_list))
-        writer2.add_scalar("Loss/val", np.mean(val_iteration_loss_list), epoch)
+        writer4.add_scalar("Loss/val", np.mean(val_iteration_loss_list), epoch)
         print("val loss: ", np.mean(val_iteration_loss_list))
         print("-------------------------------------------------")
 
     if epoch % 5 == 0:
-        save_prefix = os.path.join("/home/walid_abduljalil/Normflow/saved_models_new_loss")
-        path = "/home/walid_abduljalil/Normflow/saved_models_new_loss/model" + str(epoch) + ".pt"
+        save_prefix = os.path.join("/home/walid_abduljalil/Normflow/saved_models")
+        path = "/home/walid_abduljalil/Normflow/saved_models/model" + str(epoch) + ".pt"
         torch.save({
             'epoch': epoch,
             'model_state_dict': model.state_dict(),

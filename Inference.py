@@ -16,9 +16,10 @@ from torch.autograd import Variable
 #from data import *
 import math
 
-model_PATH = '/home/walid_abduljalil/Normflow/model45.pt'
-mel_PATH = '/home/walid_abduljalil/Normflow/data/8542.pt'
-mel_save_PATH = '/home/walid_abduljalil/Normflow/reconstructed_mel.pt'
+model_PATH = '/home/walid_abduljalil/Normflow/saved_models_120/model325.pt'
+mel_PATH = '/home/walid_abduljalil/Normflow/data/121201.pt'
+mel_save_PATH = '/home/walid_abduljalil/Normflow/reconstructed_poop2_325.pt'
+samples_save_PATH = '/home/walid_abduljalil/Normflow/VAE_sample.pt'
 
 # ------ Initialize model
 model = VAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=128)
@@ -39,10 +40,21 @@ for i in range(1):
     inf_data_input = inf_data_input.cuda()
 
     print(inf_data_input.shape)
+    print(inf_data_input)
+    print("------------------------------------------------------")
     inference_loss, inference_d_kl, reconstruction = model(inf_data_input)
-    print(reconstruction)
+    print(reconstruction.permute(0,1,3,2))
     print("shape of output: ", reconstruction.shape)
 
     reconstruction = reconstruction.squeeze(dim=0)
     reconstruction = reconstruction.squeeze(dim=0)
+    reconstruction = reconstruction.detach().cpu()
     torch.save(reconstruction, mel_save_PATH)
+
+
+    samples = model.sample()
+    print("samples shape:", samples.shape)
+    samples = samples.squeeze(dim=0)
+    samples = samples.squeeze(dim=0)
+    samples = samples.detach().cpu()
+    torch.save(samples, samples_save_PATH)
