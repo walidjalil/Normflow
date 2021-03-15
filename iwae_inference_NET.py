@@ -94,4 +94,4 @@ class IWAE(nn.Module):
         loss = get_iwae_loss(mu, log_var, gt_images=x, reconstructions=output.permute(0, 1, 2, 4, 3),
                              n_samples=self.n_samples)
 
-        return loss
+        return loss, output
