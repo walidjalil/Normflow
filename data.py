@@ -47,7 +47,7 @@ dataset_size = len(dataset)
 indices = list(range(dataset_size))
 validation_split = .15
 shuffle_dataset = True
-batch_size = 64
+batch_size = 48
 split = int(np.floor(validation_split * dataset_size))
 
 if shuffle_dataset:

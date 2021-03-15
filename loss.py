@@ -27,8 +27,8 @@ def loss_function(mu, log_var, gt_images, reconstructions, dataset_size=None):
 
 
 def get_iwae_loss(mu, log_var, gt_images, reconstructions, n_samples):
-    gt_images = gt_images.repeat(n_samples, 1, 1, 1, 1).permute()
-    kld_weight = 0.001208
+    gt_images = gt_images.repeat(n_samples, 1, 1, 1, 1).permute(1,0,2,3,4)
+    kld_weight = 0.0005
 
     reconstruction_loss = ((reconstructions - gt_images) ** 2).flatten(2).mean(-1)
     kld_loss = -0.5 * torch.sum(1 + log_var - mu ** 2 - log_var.exp(), dim=2)
