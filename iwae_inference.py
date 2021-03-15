@@ -51,6 +51,6 @@ for i in range(1):
     print("shape of output: ", reconstruction.shape)
 
     reconstruction = reconstruction.squeeze(dim=0)
-    reconstruction = reconstruction.squeeze(dim=0)
+    reconstruction = reconstruction.squeeze(dim=1)
     reconstruction = reconstruction.detach().cpu()
-    torch.save(reconstruction, mel_save_PATH)
+    torch.save(reconstruction[0,:,:], mel_save_PATH)
