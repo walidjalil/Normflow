@@ -9,7 +9,7 @@ Created on Tue Jul  7 02:23:00 2020
 import os
 import sys
 import torch
-from iwae import IWAE
+from iwae_inference_NET import IWAE
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torch.autograd import Variable
