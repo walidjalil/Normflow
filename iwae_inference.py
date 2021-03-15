@@ -13,7 +13,6 @@ from iwae_inference_NET import IWAE
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torch.autograd import Variable
-from data import *
 import math
 
 
