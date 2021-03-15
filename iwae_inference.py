@@ -54,3 +54,10 @@ for i in range(1):
     reconstruction = reconstruction.squeeze(dim=1)
     reconstruction = reconstruction.detach().cpu()
     torch.save(reconstruction[0,:,:], mel_save_PATH)
+
+    samples = model.sample()
+    print("samples shape:", samples.shape)
+    samples = samples.squeeze(dim=0)
+    samples = samples.squeeze(dim=0)
+    samples = samples.detach().cpu()
+    torch.save(samples, samples_save_PATH)

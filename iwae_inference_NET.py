@@ -95,3 +95,14 @@ class IWAE(nn.Module):
                              n_samples=self.n_samples)
 
         return loss, output
+
+    def sample(self):
+        z = torch.randn([1, 128]).cuda()
+        d_input = self.decoder_input(z)
+        d_input = d_input.view(-1, 256, 5, 10)
+        decoding2 = self.d2(d_input)
+        decoding3 = self.d3(decoding2)
+        decoding4 = self.d4(decoding3)
+
+        samples = self.last_layer(decoding4)
+        return samples
