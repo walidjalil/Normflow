@@ -47,7 +47,7 @@ for i in range(1):
     print(inf_data_input)
     print("------------------------------------------------------")
     inference_loss, reconstruction = model(inf_data_input)
-    reconstruction = reconstruction.permute(0,1,2,4,3)
+    #reconstruction = reconstruction.permute(0,1,2,4,3)
     print("shape of output: ", reconstruction.shape)
 
     reconstruction = reconstruction.squeeze(dim=0)
