@@ -80,7 +80,7 @@ class VAE(nn.Module):
         log_var = self.var(flat)
 
         z = self.reparam_trick(mu, log_var)
-        print("z shape: ",z.shape)
+        #print("z shape: ",z.shape)
         d_input = self.decoder_input(z)
         d_input = d_input.view(-1, 256, 5, 10)
         # decoding1 = self.d1(d_input)
