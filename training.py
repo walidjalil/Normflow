@@ -87,7 +87,7 @@ for epoch in range(1):
         epoch_val_loss_list.append(np.mean(val_iteration_loss_list))
         epoch_val_d_kl_list.append(np.mean(val_iteration_d_kl_list))
         #writer2.add_scalar("Loss/val", np.mean(val_iteration_loss_list), epoch)
-        print("loglikelihood: ",np.mean(al_iteration_reconloss_list))
+        print("loglikelihood: ",np.mean(val_iteration_reconloss_list))
         print("-------------------------------------------------")
 
     # if epoch % 5 == 0:
