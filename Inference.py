@@ -16,7 +16,7 @@ from torch.autograd import Variable
 #from data import *
 import math
 
-model_PATH = '/home/walid_abduljalil/Normflow/saved_models_120/model325.pt'
+model_PATH = '/home/walid_abduljalil/Normflow/model325.pt'
 mel_PATH = '/home/walid_abduljalil/Normflow/data/121201.pt'
 mel_save_PATH = '/home/walid_abduljalil/Normflow/reconstructed_poop2_325.pt'
 samples_save_PATH = '/home/walid_abduljalil/Normflow/VAE_sample.pt'

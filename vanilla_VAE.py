@@ -92,7 +92,7 @@ class VAE(nn.Module):
         # print("Output shape: ", output.shape)
         # print("gt_images=x shape: ", x.shape)
         # print("output shape: ", output.shape)
-        loss, d_kl = loss_function(mu, log_var, gt_images=x, reconstructions=output.permute(0, 1, 3, 2))
+        loss, d_kl, recon_loss = loss_function(mu, log_var, gt_images=x, reconstructions=output.permute(0, 1, 3, 2))
         # print("Loss: ", loss)
 
-        return loss, d_kl
+        return loss, d_kl, recon_loss
