@@ -9,7 +9,7 @@ Created on Tue Jul  7 02:23:00 2020
 import os
 import sys
 import torch
-from iwae import IWAE
+from iwae_inference_NET import IWAE
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from torch.autograd import Variable
@@ -36,23 +36,24 @@ model.cuda()
 # ------ Initialize optimizer
 # optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
 # scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=1.0)
-print(" ")
-print("Beginning training now:")
-print(" ")
-model.train()
-if not os.path.isdir("/home/walid_abduljalil/Normflow/iwae_saved_models"):
-    os.makedirs("/home/walid_abduljalil/Normflow/iwae_saved_models")
-
-epoch_loss_list = []
-epoch_d_kl_list = []
-epoch_val_loss_list = []
-epoch_val_d_kl_list = []
+# print(" ")
+# print("Beginning training now:")
+# print(" ")
+# model.train()
+# if not os.path.isdir("/home/walid_abduljalil/Normflow/iwae_saved_models"):
+#     os.makedirs("/home/walid_abduljalil/Normflow/iwae_saved_models")
+#
+# epoch_loss_list = []
+# epoch_d_kl_list = []
+# epoch_val_loss_list = []
+# epoch_val_d_kl_list = []
 for epoch in range(1):
     iteration_loss_list = []
     iteration_d_kl_list = []
 
     val_iteration_loss_list = []
     val_iteration_d_kl_list = []
+    val_iteration_reconloss_list = []
     model.train()
     # for i, batch in enumerate(train_loader):
     #     data_input = Variable(batch).cuda()
@@ -74,20 +75,20 @@ for epoch in range(1):
         for i, val_batch in enumerate(validation_loader):
             val_data_input = Variable(val_batch).cuda()
 
-            val_loss_output = model(val_data_input)
+            log_loss_output = model(val_data_input)
 
-            val_iteration_loss_list.append(val_loss_output.item())
-
-        epoch_val_loss_list.append(np.mean(val_iteration_loss_list))
-        writer2.add_scalar("Loss/val", np.mean(val_iteration_loss_list), epoch)
-        print("val loss: ", np.mean(val_iteration_loss_list))
+            #val_iteration_loss_list.append(val_loss_output.item())
+            val_iteration_reconloss_list.append(log_loss_output.item())
+        #epoch_val_loss_list.append(np.mean(val_iteration_loss_list))
+        #writer2.add_scalar("Loss/val", np.mean(val_iteration_loss_list), epoch)
+        print("log likelihood: ", np.mean(val_iteration_reconloss_list))
         print("-------------------------------------------------")
 
-    if epoch % 5 == 0:
-        save_prefix = os.path.join("/home/walid_abduljalil/Normflow/iwae_saved_models")
-        path = "/home/walid_abduljalil/Normflow/iwae_saved_models/model" + str(epoch) + ".pt"
-        torch.save({
-            'epoch': epoch,
-            'model_state_dict': model.state_dict(),
-            'optimizer_state_dict': optimizer.state_dict(),
-            'loss': epoch_loss_list}, path)
+    # if epoch % 5 == 0:
+    #     save_prefix = os.path.join("/home/walid_abduljalil/Normflow/iwae_saved_models")
+    #     path = "/home/walid_abduljalil/Normflow/iwae_saved_models/model" + str(epoch) + ".pt"
+    #     torch.save({
+    #         'epoch': epoch,
+    #         'model_state_dict': model.state_dict(),
+    #         'optimizer_state_dict': optimizer.state_dict(),
+    #         'loss': epoch_loss_list}, path)

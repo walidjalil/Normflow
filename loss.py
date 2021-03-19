@@ -35,4 +35,4 @@ def get_iwae_loss(mu, log_var, gt_images, reconstructions, n_samples):
     log_weight = (reconstruction_loss + kld_weight * kld_loss)
     weight = F.softmax(log_weight, dim=-1)
     loss = torch.mean(torch.sum(weight * log_weight, dim=-1), dim = 0)
-    return loss
+    return reconstruction_loss.mean()
