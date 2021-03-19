@@ -21,7 +21,7 @@ writer2 = SummaryWriter()
 device = torch.device("cuda")
 # ------ Initialize model
 model = IWAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=128, n_samples=6)
-checkpoint = torch.load('/home/walid_abduljalil/Normflow/iwae_saved_models/model85.pt',map_location="cuda:0")
+checkpoint = torch.load('/home/walid_abduljalil/Normflow/iwae_saved_models/model140.pt',map_location="cuda:0")
 model.load_state_dict(checkpoint['model_state_dict'])
 model.to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
@@ -47,27 +47,27 @@ epoch_loss_list = []
 epoch_d_kl_list = []
 epoch_val_loss_list = []
 epoch_val_d_kl_list = []
-for epoch in range(epoch_start+1, 156):
+for epoch in range(1):
     iteration_loss_list = []
     iteration_d_kl_list = []
 
     val_iteration_loss_list = []
     val_iteration_d_kl_list = []
     model.train()
-    for i, batch in enumerate(train_loader):
-        data_input = Variable(batch).cuda()
-        optimizer.zero_grad()
-
-        loss_output = model(data_input)
-        loss_output.backward()
-        iteration_loss_list.append(loss_output.item())
-
-        optimizer.step()
-        scheduler.step()
-
-    epoch_loss_list.append(np.mean(iteration_loss_list))
-    writer.add_scalar("Loss/train", np.mean(iteration_loss_list), epoch)
-    print("train loss: ", np.mean(iteration_loss_list))
+    # for i, batch in enumerate(train_loader):
+    #     data_input = Variable(batch).cuda()
+    #     optimizer.zero_grad()
+    #
+    #     loss_output = model(data_input)
+    #     loss_output.backward()
+    #     iteration_loss_list.append(loss_output.item())
+    #
+    #     #optimizer.step()
+    #     #scheduler.step()
+    #
+    # epoch_loss_list.append(np.mean(iteration_loss_list))
+    # writer.add_scalar("Loss/train", np.mean(iteration_loss_list), epoch)
+    # print("train loss: ", np.mean(iteration_loss_list))
 
     with torch.no_grad():
         model.eval()
