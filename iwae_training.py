@@ -75,7 +75,7 @@ for epoch in range(1):
         for i, val_batch in enumerate(validation_loader):
             val_data_input = Variable(val_batch).cuda()
 
-            log_loss_output = model(val_data_input)
+            log_loss_output, output = model(val_data_input)
 
             #val_iteration_loss_list.append(val_loss_output.item())
             val_iteration_reconloss_list.append(log_loss_output.item())
