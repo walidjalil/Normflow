@@ -1,4 +1,4 @@
-# DT2112
+# DT2112 - Speech Technology -  Project 
 
 Training VAEs & IWAEs 
 
