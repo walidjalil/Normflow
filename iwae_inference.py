@@ -21,7 +21,7 @@ model_PATH = '/home/walid_abduljalil/Normflow/iwae_saved_models/model140.pt'
 mel_PATH = '/home/walid_abduljalil/Normflow/data/'
 mel_number = '121201.pt'
 mel_save_PATH = '/home/walid_abduljalil/waveglow/mel_spectrograms/IWAE_reconstruction_'
-samples_save_PATH = '/home/walid_abduljalil/waveglow/mel_spectrograms/'
+samples_save_PATH = '/home/walid_abduljalil/waveglow/mel_spectrograms/iwae_sample'
 ending = '.pt'
 
 # ------ Initialize model
