@@ -19,7 +19,7 @@ import math
 model_PATH = '/home/walid_abduljalil/Normflow/model325.pt'
 mel_PATH = '/home/walid_abduljalil/Normflow/data/'
 mel_number = '121201.pt'
-mel_save_PATH = '/home/walid_abduljalil/Normflow/IWAE_recon_'
+mel_save_PATH = '/home/walid_abduljalil/waveglow/mel_spectrograms/VAE_reconstruction_'
 samples_save_PATH = '/home/walid_abduljalil/Normflow/VAE_sample.pt'
 
 # ------ Initialize model
