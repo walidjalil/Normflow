@@ -18,8 +18,9 @@ import math
 
 
 model_PATH = '/home/walid_abduljalil/Normflow/iwae_saved_models/model140.pt'
-mel_PATH = '/home/walid_abduljalil/Normflow/data/121201.pt'
-mel_save_PATH = '/home/walid_abduljalil/Normflow/iwae_reconstruction.pt'
+mel_PATH = '/home/walid_abduljalil/Normflow/data/'
+mel_number = '121201.pt'
+mel_save_PATH = '/home/walid_abduljalil/waveglow/mel_spectrograms/IWAE_reconstruction_'
 samples_save_PATH = '/home/walid_abduljalil/Normflow/iwae_sample.pt'
 
 
@@ -38,7 +39,7 @@ model.train()
 
 
 for i in range(1):
-    inf_data_input = torch.load(mel_PATH).T
+    inf_data_input = torch.load(mel_PATH+mel_number).T
     inf_data_input = inf_data_input.unsqueeze(dim=0)
     inf_data_input = inf_data_input.unsqueeze(dim=0)
     inf_data_input = inf_data_input.cuda()
@@ -53,11 +54,11 @@ for i in range(1):
     reconstruction = reconstruction.squeeze(dim=0)
     reconstruction = reconstruction.squeeze(dim=1)
     reconstruction = reconstruction.detach().cpu()
-    torch.save(reconstruction[0,:,:], mel_save_PATH)
+    torch.save(reconstruction[0,:,:], mel_save_PATH+mel_number)
 
-    samples = model.sample()
-    print("samples shape:", samples.shape)
-    samples = samples.squeeze(dim=0)
-    samples = samples.squeeze(dim=0)
-    samples = samples.detach().cpu()
-    torch.save(samples, samples_save_PATH)
+    # samples = model.sample()
+    # print("samples shape:", samples.shape)
+    # samples = samples.squeeze(dim=0)
+    # samples = samples.squeeze(dim=0)
+    # samples = samples.detach().cpu()
+    # torch.save(samples, samples_save_PATH)
