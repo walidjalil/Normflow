@@ -21,8 +21,8 @@ model_PATH = '/home/walid_abduljalil/Normflow/iwae_saved_models/model140.pt'
 mel_PATH = '/home/walid_abduljalil/Normflow/data/'
 mel_number = '121201.pt'
 mel_save_PATH = '/home/walid_abduljalil/waveglow/mel_spectrograms/IWAE_reconstruction_'
-samples_save_PATH = '/home/walid_abduljalil/Normflow/iwae_sample.pt'
-
+samples_save_PATH = '/home/walid_abduljalil/waveglow/mel_spectrograms/'
+ending = '.pt'
 
 # ------ Initialize model
 model = IWAE(in_channels=1, out_channels=32, kernel_size=3, n_latent=128, n_samples=6)
@@ -56,9 +56,10 @@ for i in range(1):
     reconstruction = reconstruction.detach().cpu()
     torch.save(reconstruction[0,:,:], mel_save_PATH+mel_number)
 
-    # samples = model.sample()
-    # print("samples shape:", samples.shape)
-    # samples = samples.squeeze(dim=0)
-    # samples = samples.squeeze(dim=0)
-    # samples = samples.detach().cpu()
-    # torch.save(samples, samples_save_PATH)
+for j in range(10):
+    samples = model.sample()
+    print("samples shape:", samples.shape)
+    samples = samples.squeeze(dim=0)
+    samples = samples.squeeze(dim=0)
+    samples = samples.detach().cpu()
+    torch.save(samples, samples_save_PATH+str(j+1)+ending)
